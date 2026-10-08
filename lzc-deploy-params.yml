@@ -1,0 +1,139 @@
+params:
+  - id: admin_email
+    type: string
+    name: "Admin Email"
+    description: "Admin account email (optional; leave empty to create the owner account through the in-app setup page)"
+    default_value: ""
+    optional: true
+  - id: smtp_host
+    type: string
+    name: "SMTP Host"
+    description: "SMTP server for OTP emails (optional; when unset the OTP code is printed to the application log)"
+    default_value: ""
+    optional: true
+  - id: smtp_port
+    type: string
+    name: "SMTP Port"
+    description: "SMTP port (default 587)"
+    default_value: "587"
+    optional: true
+  - id: smtp_username
+    type: string
+    name: "SMTP Username"
+    description: "SMTP username (optional)"
+    default_value: ""
+    optional: true
+  - id: smtp_password
+    type: secret
+    name: "SMTP Password"
+    description: "SMTP password (optional)"
+    default_value: ""
+    optional: true
+  - id: smtp_from
+    type: string
+    name: "SMTP From"
+    description: "From address for OTP emails (optional, defaults to the SMTP username)"
+    default_value: ""
+    optional: true
+  - id: stripe_secret_key
+    type: secret
+    name: "Stripe Secret Key"
+    description: "Stripe secret key for billing checkout (optional)"
+    default_value: ""
+    optional: true
+  - id: stripe_webhook_secret
+    type: secret
+    name: "Stripe Webhook Secret"
+    description: "Stripe webhook signing secret (optional)"
+    default_value: ""
+    optional: true
+  - id: redis_url
+    type: string
+    name: "Redis URL"
+    description: "Redis connection URL for rate limiting and caching (optional)"
+    default_value: ""
+    optional: true
+  - id: storage_bucket
+    type: string
+    name: "Storage Bucket"
+    description: "S3-compatible bucket for release distribution (optional; set all STORAGE_* together to enable)"
+    default_value: ""
+    optional: true
+  - id: storage_endpoint
+    type: string
+    name: "Storage Endpoint"
+    description: "S3-compatible endpoint URL (optional)"
+    default_value: ""
+    optional: true
+  - id: storage_region
+    type: string
+    name: "Storage Region"
+    description: "S3 region (default auto)"
+    default_value: "auto"
+    optional: true
+  - id: storage_access_key
+    type: string
+    name: "Storage Access Key"
+    description: "S3 access key ID (optional)"
+    default_value: ""
+    optional: true
+  - id: storage_secret_key
+    type: secret
+    name: "Storage Secret Key"
+    description: "S3 secret access key (optional)"
+    default_value: ""
+    optional: true
+  - id: storage_public_url
+    type: string
+    name: "Storage Public URL"
+    description: "Public base URL for release downloads (optional)"
+    default_value: ""
+    optional: true
+
+locales:
+  zh:
+    admin_email:
+      name: "管理员邮箱"
+      description: "管理员账号邮箱（可选；留空则通过应用内初始化页面创建 owner 账号）"
+    smtp_host:
+      name: "SMTP 服务器"
+      description: "用于发送登录验证码的 SMTP 服务器（可选；未配置时验证码打印在应用日志中）"
+    smtp_port:
+      name: "SMTP 端口"
+      description: "SMTP 端口（默认 587）"
+    smtp_username:
+      name: "SMTP 用户名"
+      description: "SMTP 用户名（可选）"
+    smtp_password:
+      name: "SMTP 密码"
+      description: "SMTP 密码（可选）"
+    smtp_from:
+      name: "SMTP 发件地址"
+      description: "验证码邮件的发件地址（可选，默认使用 SMTP 用户名）"
+    stripe_secret_key:
+      name: "Stripe Secret Key"
+      description: "Stripe 密钥，用于计费下单（可选）"
+    stripe_webhook_secret:
+      name: "Stripe Webhook Secret"
+      description: "Stripe webhook 签名密钥（可选）"
+    redis_url:
+      name: "Redis 连接地址"
+      description: "用于限流与缓存的 Redis 连接地址（可选）"
+    storage_bucket:
+      name: "存储 Bucket"
+      description: "用于发布分发的 S3 兼容存储桶（可选；需与其余 STORAGE_* 一并配置）"
+    storage_endpoint:
+      name: "存储 Endpoint"
+      description: "S3 兼容存储端点地址（可选）"
+    storage_region:
+      name: "存储区域"
+      description: "S3 区域（默认 auto）"
+    storage_access_key:
+      name: "存储 Access Key"
+      description: "S3 Access Key ID（可选）"
+    storage_secret_key:
+      name: "存储 Secret Key"
+      description: "S3 Secret Access Key（可选）"
+    storage_public_url:
+      name: "存储公网地址"
+      description: "发布下载的公网基础地址（可选）"

@@ -1,0 +1,65 @@
+application:
+  subdomain: keygate
+  multi_instance: false
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://keygate:9000/
+
+services:
+  postgres:
+    # upstream: library/postgres:18-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:8816d458e3c33783
+    environment:
+      - POSTGRES_USER=keygate
+      - POSTGRES_PASSWORD={{ stable_secret "db_password" | sha256sum | substr 0 48 }}
+      - POSTGRES_DB=keygate
+    binds:
+      - /lzcapp/var/postgres:/var/lib/postgresql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U keygate
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  keygate:
+    # upstream: ghcr.io/tabloy/keygate:0.1.13
+    image: registry.lazycat.cloud/czyt/tabloy/keygate:f376890041bdeca0
+    environment:
+      - PORT=9000
+      - ENVIRONMENT=production
+      - BASE_URL=https://${LAZYCAT_SUBDOMAIN}.${LAZYCAT_BOX_DOMAIN}
+      - DATABASE_URL=postgres://keygate:{{ stable_secret "db_password" | sha256sum | substr 0 48 }}@postgres:5432/keygate?sslmode=disable
+      - JWT_SECRET={{ stable_secret "jwt_secret" | sha256sum }}
+      - LICENSE_SIGNING_KEY={{ stable_secret "license_signing_key" | sha256sum }}
+      - RELEASE_KEY_ENCRYPTION_KEY={{ stable_secret "release_key_encryption_key" | sha256sum }}
+      - ADMIN_EMAILS={{ .U.admin_email | default "" }}
+      - SMTP_HOST={{ .U.smtp_host | default "" }}
+      - SMTP_PORT={{ .U.smtp_port | default "587" }}
+      - SMTP_USERNAME={{ .U.smtp_username | default "" }}
+      - SMTP_PASSWORD={{ .U.smtp_password | default "" }}
+      - SMTP_FROM={{ .U.smtp_from | default "" }}
+      - STRIPE_SECRET_KEY={{ .U.stripe_secret_key | default "" }}
+      - STRIPE_WEBHOOK_SECRET={{ .U.stripe_webhook_secret | default "" }}
+      - REDIS_URL={{ .U.redis_url | default "" }}
+      - STORAGE_BUCKET={{ .U.storage_bucket | default "" }}
+      - STORAGE_REGION={{ .U.storage_region | default "auto" }}
+      - STORAGE_ACCESS_KEY={{ .U.storage_access_key | default "" }}
+      - STORAGE_SECRET_KEY={{ .U.storage_secret_key | default "" }}
+      - STORAGE_ENDPOINT={{ .U.storage_endpoint | default "" }}
+      - STORAGE_PUBLIC_URL={{ .U.storage_public_url | default "" }}
+    depends_on:
+      - postgres
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - -sf
+        - http://localhost:9000/health
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
