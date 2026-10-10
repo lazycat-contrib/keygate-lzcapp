@@ -6,11 +6,10 @@ application:
   upstreams:
     - location: /
       backend: http://keygate:9000/
-
 services:
   postgres:
-    # upstream: library/postgres:18-alpine
-    image: registry.lazycat.cloud/czyt/library/postgres:8816d458e3c33783
+    # upstream: library/postgres:18.6-alpine
+    image: registry.lazycat.cloud/czyt/library/postgres:128049d373222a3b
     environment:
       - POSTGRES_USER=keygate
       - POSTGRES_PASSWORD={{ stable_secret "db_password" | sha256sum | substr 0 48 }}
@@ -24,7 +23,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
   keygate:
     # upstream: ghcr.io/tabloy/keygate:0.1.13
     image: registry.lazycat.cloud/czyt/tabloy/keygate:f376890041bdeca0
