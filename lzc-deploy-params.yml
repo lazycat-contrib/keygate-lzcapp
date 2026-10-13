@@ -5,30 +5,31 @@ params:
     description: "Admin account email (optional; leave empty to create the owner account through the in-app setup page)"
     default_value: ""
     optional: true
+    
   - id: smtp_host
     type: string
     name: "SMTP Host"
     description: "SMTP server for OTP emails (optional; when unset the OTP code is printed to the application log)"
     default_value: ""
-    optional: true
+
   - id: smtp_port
     type: string
     name: "SMTP Port"
     description: "SMTP port (default 587)"
     default_value: "587"
-    optional: true
+  
   - id: smtp_username
     type: string
     name: "SMTP Username"
-    description: "SMTP username (optional)"
+    description: "SMTP username"
     default_value: ""
-    optional: true
+
   - id: smtp_password
     type: secret
     name: "SMTP Password"
-    description: "SMTP password (optional)"
+    description: "SMTP password"
     default_value: ""
-    optional: true
+
   - id: smtp_from
     type: string
     name: "SMTP From"
@@ -103,10 +104,10 @@ locales:
       description: "SMTP 端口（默认 587）"
     smtp_username:
       name: "SMTP 用户名"
-      description: "SMTP 用户名（可选）"
+      description: "SMTP 用户名"
     smtp_password:
       name: "SMTP 密码"
-      description: "SMTP 密码（可选）"
+      description: "SMTP 密码"
     smtp_from:
       name: "SMTP 发件地址"
       description: "验证码邮件的发件地址（可选，默认使用 SMTP 用户名）"
