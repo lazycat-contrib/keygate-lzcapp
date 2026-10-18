@@ -1,5 +1,5 @@
 package: cloud.lazycat.app.keygate
-version: 0.1.14
+version: 0.1.15
 name: Keygate
 description: "开源软件许可证管理平台：激活码、许可证签发、更新分发、Stripe 计费"
 min_os_version: "1.5.0"
