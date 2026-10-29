@@ -24,8 +24,8 @@ services:
       timeout: 5s
       retries: 5
   keygate:
-    # upstream: ghcr.io/tabloy/keygate:0.1.18
-    image: registry.lazycat.cloud/czyt/tabloy/keygate:ee132a7e84205145
+    # upstream: ghcr.io/tabloy/keygate:0.1.19
+    image: registry.lazycat.cloud/czyt/tabloy/keygate:fff479ba57216d23
     environment:
       - PORT=9000
       - ENVIRONMENT=production
